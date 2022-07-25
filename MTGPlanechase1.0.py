@@ -16,8 +16,8 @@ class MainWindow(QWidget):
     passed = 0
 
     def loadImages(self):
-        if os.path.exists('assets'):
-            os.chdir('assets')
+        if os.path.exists('cards'):
+            os.chdir('cards')
         dir_contents = [os.path.abspath(file) 
             for file in os.listdir()]
         os.chdir(os.curdir)
@@ -51,10 +51,7 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        if os.path.exists('assets'):
-            os.chdir('assets')
-        self.setWindowIcon(QIcon('planeswalker.ico'))
-
+        self.setWindowIcon(QIcon('assets\\planeswalker.ico'))
         self.setWindowTitle("MTG Planechase")
         grid = QGridLayout()
         self.setLayout(grid)
@@ -72,7 +69,7 @@ class MainWindow(QWidget):
         grid.addWidget(undo, 1, 2)
 
         self.loadImages()
-        self.draw()
+        self.shuffle()
 
 
 def main():
