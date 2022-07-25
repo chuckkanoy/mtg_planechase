@@ -1,8 +1,8 @@
-from imp import load_dynamic
 
+from genericpath import isdir
 from numpy import indices
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QGridLayout, QLabel
-from PyQt5.QtGui import QPixmap, QTransform
+from PyQt5.QtGui import QPixmap, QTransform, QIcon
 from PyQt5.QtCore import Qt
 
 import sys
@@ -16,7 +16,8 @@ class MainWindow(QWidget):
     passed = 0
 
     def loadImages(self):
-        os.chdir('assets')
+        if os.path.exists('assets'):
+            os.chdir('assets')
         dir_contents = [os.path.abspath(file) 
             for file in os.listdir()]
         os.chdir(os.curdir)
@@ -47,9 +48,12 @@ class MainWindow(QWidget):
             self.deck.setPixmap(card)
             self.passed -= 1
 
-
     def __init__(self):
         super().__init__()
+
+        if os.path.exists('assets'):
+            os.chdir('assets')
+        self.setWindowIcon(QIcon('planeswalker.ico'))
 
         self.setWindowTitle("MTG Planechase")
         grid = QGridLayout()
